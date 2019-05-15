@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.SeriesMapper">
+  <resultMap id="BaseResultMap" type="cc.daleyzou.patient.domain.Series">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pkTBLSeriesID" jdbcType="BIGINT" property="pktblseriesid" />
+    <result column="bodyPartExamined" jdbcType="VARCHAR" property="bodypartexamined" />
+    <result column="createdDate" jdbcType="TIMESTAMP" property="createddate" />
+    <result column="laterality" jdbcType="VARCHAR" property="laterality" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="operatorsName" jdbcType="VARCHAR" property="operatorsname" />
+    <result column="patientPosition" jdbcType="VARCHAR" property="patientposition" />
+    <result column="protocolName" jdbcType="VARCHAR" property="protocolname" />
+    <result column="seriesDateTime" jdbcType="TIMESTAMP" property="seriesdatetime" />
+    <result column="seriesDescription" jdbcType="VARCHAR" property="seriesdescription" />
+    <result column="seriesInstanceUID" jdbcType="VARCHAR" property="seriesinstanceuid" />
+    <result column="seriesNumber" jdbcType="INTEGER" property="seriesnumber" />
+    <result column="pkTBLStudyID" jdbcType="BIGINT" property="pktblstudyid" />
+  </resultMap>
+</mapper>

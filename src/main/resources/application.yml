@@ -177,4 +177,12 @@ febs:
     # 验证码字符个数，默认4个字符
     length: 4
 
+pacs:
+  ports: 104
+  aetitle: '*'
+  storage:
+    dcm: D:/Graduation/EasyPACS/tmp/dcm/
+
+
+
 

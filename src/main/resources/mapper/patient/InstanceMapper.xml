@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.InstanceMapper">
+  <resultMap id="instanceMap" type="cc.daleyzou.patient.domain.Instance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pkTBLInstanceID" jdbcType="BIGINT" property="pktblinstanceid" />
+    <result column="acquisitionDateTime" jdbcType="TIMESTAMP" property="acquisitiondatetime" />
+    <result column="contentDateTime" jdbcType="TIMESTAMP" property="contentdatetime" />
+    <result column="createdDate" jdbcType="TIMESTAMP" property="createddate" />
+    <result column="exposureTime" jdbcType="INTEGER" property="exposuretime" />
+    <result column="imageOrientation" jdbcType="VARCHAR" property="imageorientation" />
+    <result column="imagePosition" jdbcType="VARCHAR" property="imageposition" />
+    <result column="imageType" jdbcType="VARCHAR" property="imagetype" />
+    <result column="instanceNumber" jdbcType="INTEGER" property="instancenumber" />
+    <result column="kvp" jdbcType="VARCHAR" property="kvp" />
+    <result column="mediaStorageSopInstanceUID" jdbcType="VARCHAR" property="mediastoragesopinstanceuid" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="patientOrientation" jdbcType="VARCHAR" property="patientorientation" />
+    <result column="pixelSpacing" jdbcType="REAL" property="pixelspacing" />
+    <result column="sliceLocation" jdbcType="REAL" property="slicelocation" />
+    <result column="sliceThickness" jdbcType="REAL" property="slicethickness" />
+    <result column="sopClassUID" jdbcType="VARCHAR" property="sopclassuid" />
+    <result column="sopInstanceUID" jdbcType="VARCHAR" property="sopinstanceuid" />
+    <result column="transferSyntaxUID" jdbcType="VARCHAR" property="transfersyntaxuid" />
+    <result column="windowCenter" jdbcType="VARCHAR" property="windowcenter" />
+    <result column="windowWidth" jdbcType="VARCHAR" property="windowwidth" />
+    <result column="xrayTubeCurrent" jdbcType="INTEGER" property="xraytubecurrent" />
+    <result column="pkTBLSeriesID" jdbcType="BIGINT" property="pktblseriesid" />
+    <result column="spacingBetweenSlices" jdbcType="REAL" property="spacingbetweenslices" />
+    <result column="heartVolume" jdbcType="REAL" property="heartvolume" />
+  </resultMap>
+
+  <select id="findAllByPkTBLPatientID" resultMap="instanceMap">
+    SELECT
+      i.*
+    FROM
+      tbl_instance i
+        LEFT OUTER JOIN tbl_series s on i.pkTBLSeriesID=s.pkTBLSeriesID
+        LEFT OUTER JOIN tbl_study st on st.pkTBLStudyID=s.pkTBLStudyID
+        LEFT OUTER JOIN tbl_patient p on p.pkTBLPatientID=st.pkTBLPatientID
+    WHERE
+      p.pkTBLPatientID=#{pkTBLPatientID}
+  </select>
+</mapper>
