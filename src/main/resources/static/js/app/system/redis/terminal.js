@@ -230,7 +230,7 @@ var $MB_Redis_Bash = function () {
                     }
                 }
             } else {
-                printf(" Redis bash with SpringBoot by <a href='https://mrbird.cc' class='kw_b'>MrBird</a>, version v0.0.1 - Snapshot \n");
+                printf(" Redis bash with SpringBoot by <a href='https://daleyzou.cc' class='kw_b'>daleyzou</a>, version v0.0.1 - Snapshot \n");
                 printf(" These shell commands are defined internally.  Type `help` to see this list.\n");
                 printf(" Type `help name` to find out more about the command `name`.\n");
                 printf(" -------------------------------- \n");
