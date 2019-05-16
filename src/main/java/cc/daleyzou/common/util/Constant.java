@@ -15,4 +15,7 @@ public class Constant {
 	// 保存dcm文件的目录
 	public static final String STORAGE_DCM = "D:/Graduation/EasyPACS/tmp/dcm/";
 
+	public static final String STORAGE_IMAGE = "D:/Graduation/EasyPACS/tmp/img/";
+
+
 }

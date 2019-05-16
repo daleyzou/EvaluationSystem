@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/layout">
+<head>	
+    <title>Dicom Server</title> 
+ 	<!-- custom js file -->
+	<script th:src="@{js/app/patient/server.js}"></script>
+	<script data-th-src="@{js/app/patient/server.js}"></script>
+	<script src="../../../static/js/server.js"></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+<div class="container">
+	<div class="page-header">		
+		<h1>PACS Server</h1>
+		<h2><div id='divLive' ></div></h2>
+	</div>
+	
+	<div class="row">
+	<div class="col-sm-12  text-center">		
+		
+			<table id="tblPatients"  class="table table-striped fixed-header">   	
+			<caption>Patients</caption>			
+   					<thead>
+      					<tr>         					
+         					<th>Pk Patient Id</th>
+         					<th>Patient Name</th>
+         					<th>Patient ID</th>         				
+         					<th>Sex</th>
+         					<th>Age</th>
+         					<th>Created Date</th>
+         					<th>Modified Date</th>         					
+      					</tr>
+   					</thead>
+   					<tbody>
+      					<tr th:each="patient,status : ${patients}" >      						
+         					<td><a th:href="${'/details?pkTBLPatientID='+patient?.pktblpatientid}" th:text="${patient?.pktblpatientid}"></a></td>
+         					<td><a th:href="${'/details?pkTBLPatientID='+patient?.pktblpatientid}" th:text="${patient?.patientname}"></a></td>
+         					<td th:text="${patient?.patientid}"></td>
+         					<td th:text="${patient?.patientsex}"></td>
+         					<td th:text="${patient?.patientage}"></td>
+         					<td th:text="${patient?.createddate}"></td>
+         					<td th:text="${patient?.modifieddate}"></td>
+         					
+      					</tr>
+      					<tr th:unless="${patients}">
+							<td colspan="8">No patients found</td>
+						</tr>
+      					
+   					</tbody>
+				</table>
+			
+			<div th:replace="fragments/pager :: pager"></div>
+			
+	</div>
+	</div>
+	
+	
+		
+</div>
+
+</div>
+
+
+</body>
+</html>

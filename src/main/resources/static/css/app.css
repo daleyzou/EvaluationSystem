@@ -2608,7 +2608,7 @@ fieldset[disabled] a.btn {
 }
 
 .btn-success {
-  background-color: #32c787;
+  background-color: #2C3E50;
   border-color: #32c787;
 }
 .btn-success, .btn-success:focus {
@@ -2620,7 +2620,7 @@ fieldset[disabled] a.btn {
   border-color: #2fbb7f;
 }
 .btn-success.disabled, .btn-success:disabled {
-  background-color: #32c787;
+  background-color: #2C3E50;
   border-color: #32c787;
 }
 .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
@@ -2747,7 +2747,7 @@ fieldset[disabled] a.btn {
 }
 .btn-outline-success:hover {
   color: #FFFFFF;
-  background-color: #32c787;
+  background-color: #2C3E50;
   border-color: #32c787;
 }
 .btn-outline-success.disabled, .btn-outline-success:disabled {
@@ -2756,7 +2756,7 @@ fieldset[disabled] a.btn {
 }
 .btn-outline-success:active, .btn-outline-success.active, .show > .btn-outline-success.dropdown-toggle {
   color: #FFFFFF;
-  background-color: #32c787;
+  background-color: #2C3E50;
   border-color: #32c787;
 }
 
@@ -3946,7 +3946,7 @@ tbody.collapse.show {
 }
 
 .card-success {
-  background-color: #32c787;
+  background-color: #2C3E50;
   border-color: #32c787;
 }
 .card-success .card-header,
@@ -4285,7 +4285,7 @@ a.badge:focus, a.badge:hover {
 }
 
 .badge-success {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 .badge-success[href]:focus, .badge-success[href]:hover {
   background-color: #289e6b;
@@ -5276,7 +5276,7 @@ a.bg-primary:focus, a.bg-primary:hover {
 }
 
 .bg-success {
-  background-color: #32c787 !important;
+  background-color: #2C3E50 !important;
 }
 
 a.bg-success:focus, a.bg-success:hover {
@@ -9500,7 +9500,7 @@ select::-ms-expand {
 }
 
 .tab-container--green .nav-tabs .nav-link:before {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 
 .tab-container--amber .nav-tabs .nav-link:before {
@@ -9617,7 +9617,7 @@ select::-ms-expand {
 }
 
 .bg-green {
-  background-color: #32c787 !important;
+  background-color: #2C3E50 !important;
 }
 
 .color-green {
@@ -10705,7 +10705,7 @@ textarea {
 }
 
 .chat__available:before {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 
 .chat__away:before {
@@ -10782,7 +10782,7 @@ textarea {
 }
 
 .toggle-switch--green .toggle-switch__checkbox:checked ~ .toggle-switch__helper:after {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 
 .toggle-switch--amber .toggle-switch__checkbox:checked ~ .toggle-switch__helper:after {
@@ -11699,7 +11699,7 @@ textarea {
 [data-ma-theme="green"] .header,
 [data-ma-theme="green"] .login__block__header,
 [data-ma-theme="green"] .login__block__btn {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 [data-ma-theme="green"] .navigation__sub--active > a,
 [data-ma-theme="green"] .navigation__active > a,
@@ -12596,7 +12596,7 @@ label.error{
   background: #32c787;
 }
 .input-slider--green.noUi-horizontal .noUi-handle, .input-slider--green.noUi-vertical .noUi-handle {
-  background-color: #32c787;
+  background-color: #2C3E50;
 }
 
 .easy-pie-chart {
