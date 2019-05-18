@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.EquipmentMapper">
+  <resultMap id="BaseResultMap" type="cc.daleyzou.patient.domain.Equipment">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pkTBLEquipmentID" jdbcType="BIGINT" property="pktblequipmentid" />
+    <result column="conversionType" jdbcType="VARCHAR" property="conversiontype" />
+    <result column="createdDate" jdbcType="TIMESTAMP" property="createddate" />
+    <result column="deviceSerialNumber" jdbcType="VARCHAR" property="deviceserialnumber" />
+    <result column="institutionAddress" jdbcType="VARCHAR" property="institutionaddress" />
+    <result column="institutionName" jdbcType="VARCHAR" property="institutionname" />
+    <result column="institutionalDepartmentName" jdbcType="VARCHAR" property="institutionaldepartmentname" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="manufacturerModelName" jdbcType="VARCHAR" property="manufacturermodelname" />
+    <result column="modality" jdbcType="VARCHAR" property="modality" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="softwareVersion" jdbcType="VARCHAR" property="softwareversion" />
+    <result column="stationName" jdbcType="VARCHAR" property="stationname" />
+    <result column="pkTBLSeriesID" jdbcType="BIGINT" property="pktblseriesid" />
+  </resultMap>
+</mapper>

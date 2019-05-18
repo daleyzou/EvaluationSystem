@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.StudyMapper">
+  <resultMap id="BaseResultMap" type="cc.daleyzou.patient.domain.Study">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pkTBLStudyID" jdbcType="BIGINT" property="pktblstudyid" />
+    <result column="accessionNumber" jdbcType="VARCHAR" property="accessionnumber" />
+    <result column="additionalPatientHistory" jdbcType="VARCHAR" property="additionalpatienthistory" />
+    <result column="admittingDiagnosesDescription" jdbcType="VARCHAR" property="admittingdiagnosesdescription" />
+    <result column="createdDate" jdbcType="TIMESTAMP" property="createddate" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="referringPhysicianName" jdbcType="VARCHAR" property="referringphysicianname" />
+    <result column="studyDateTime" jdbcType="TIMESTAMP" property="studydatetime" />
+    <result column="studyDescription" jdbcType="VARCHAR" property="studydescription" />
+    <result column="studyID" jdbcType="VARCHAR" property="studyid" />
+    <result column="studyInstanceUID" jdbcType="VARCHAR" property="studyinstanceuid" />
+    <result column="studyPriorityID" jdbcType="VARCHAR" property="studypriorityid" />
+    <result column="studyStatusID" jdbcType="VARCHAR" property="studystatusid" />
+    <result column="pkTBLPatientID" jdbcType="BIGINT" property="pktblpatientid" />
+  </resultMap>
+</mapper>

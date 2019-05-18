@@ -63,13 +63,20 @@ public class CountServiceImpl implements CountService {
             List<Instance> instances = instanceMapper.findAllByPkTBLPatientID(pkTBLPatientID);
             if (CollectionUtils.isEmpty(instances)) {
                 // TODO 没有这个患者的dcm文件数据
+                System.out.println("没有患者数据");
             }
+            int count = 1;
+            int num = 1;
             for (Instance instance : instances) {
+                if (count % 50 == 0){
+                    num++;
+                }
+                count++;
                 File dicomFile = new File(pacsDcmStoragePath + "/" + instance.getMediastoragesopinstanceuid() + ".dcm");
                 Dcm2Jpg dcm2Jpg = new Dcm2Jpg();
                 dcm2Jpg.initImageWriter("PNG", "PNG", null, null, null);
                 String newfilename = FilenameUtils.removeExtension(dicomFile.getName()) + PNG_EXT;
-                String outputPath =  + pkTBLPatientID + "/";
+                String outputPath = pacsOriginalPath + pkTBLPatientID.toString() + num + "/";
                 // 目录不存在就创建
                 boolean orExistsDir = FileUtils.createOrExistsDir(outputPath);
                 if (!orExistsDir){
@@ -84,6 +91,13 @@ public class CountServiceImpl implements CountService {
                 if (!tempImage.exists())
                     // 文件不存在
                     throw new Exception();
+            }
+            // 创建心脏分割结果存放目录
+            String resultPath = pacsResultPath + pkTBLPatientID + "/";
+            // 目录不存在就创建
+            boolean orExistsDir = FileUtils.createOrExistsDir(resultPath);
+            if (!orExistsDir){
+                LOG.error("创建心脏分割结果存放目录失败");
             }
         }catch (Exception e){
             String message = "将患者id为" + pkTBLPatientID.toString() + "进行文件处理失败！";

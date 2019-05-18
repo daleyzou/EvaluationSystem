@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.PatientMapper">
+  <resultMap id="BaseResultMap" type="cc.daleyzou.patient.domain.Patient">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pkTBLPatientID" jdbcType="BIGINT" property="pktblpatientid" />
+    <result column="createdDate" jdbcType="TIMESTAMP" property="createddate" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="patientAge" jdbcType="VARCHAR" property="patientage" />
+    <result column="patientBirthday" jdbcType="DATE" property="patientbirthday" />
+    <result column="patientID" jdbcType="VARCHAR" property="patientid" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientname" />
+    <result column="patientSex" jdbcType="VARCHAR" property="patientsex" />
+    <result column="ef" jdbcType="REAL" property="ef" />
+  </resultMap>
+</mapper>
