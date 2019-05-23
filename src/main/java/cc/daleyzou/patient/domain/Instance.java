@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_instance")
-public class Instance {
+public class Instance implements Comparable <Instance> {
     /**
      * 主键
      */
@@ -156,6 +156,8 @@ public class Instance {
     @Column(name = "heartVolume")
     private Float heartvolume;
 
+    @Column(name = "num")
+    private Integer num;
     /**
      * 获取主键
      *
@@ -610,6 +612,14 @@ public class Instance {
         this.heartvolume = heartvolume;
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     @PreUpdate
     @PrePersist
     public void updateTimeStamps() {
@@ -617,5 +627,10 @@ public class Instance {
         if (createddate == null) {
             createddate = new Date();
         }
+    }
+
+    @Override
+    public int compareTo(Instance o) {
+        return this.num.compareTo(o.getNum());
     }
 }

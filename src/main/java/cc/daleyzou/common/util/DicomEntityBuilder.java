@@ -15,6 +15,8 @@ public class DicomEntityBuilder {
         patient.setPatientid(patientID);
         patient.setPatientname(patientName);
         patient.setPatientsex(patientSex);
+        patient.setCreateddate(new Date());
+        patient.setModifieddate(new Date());
 
         return patient;
     }
@@ -34,6 +36,8 @@ public class DicomEntityBuilder {
         study.setStudyinstanceuid(studyInstanceUID);
         study.setStudypriorityid(studyPriorityID);
         study.setStudystatusid(studyStatusID);
+        study.setCreateddate(new Date());
+        study.setModifieddate(new Date());
 
         return study;
     }
@@ -51,6 +55,8 @@ public class DicomEntityBuilder {
         series.setSeriesdescription(seriesDescription);
         series.setSeriesinstanceuid(seriesInstanceUID);
         series.setSeriesnumber(seriesNumber);
+        series.setCreateddate(new Date());
+        series.setModifieddate(new Date());
 
         return series;
     }
@@ -70,6 +76,8 @@ public class DicomEntityBuilder {
         equipment.setModality(modality);
         equipment.setSoftwareversion(softwareVersion);
         equipment.setStationname(stationName);
+        equipment.setCreateddate(new Date());
+        equipment.setModifieddate(new Date());
 
         return equipment;
     }
@@ -101,6 +109,8 @@ public class DicomEntityBuilder {
         instance.setWindowwidth(windowWidth);
         instance.setXraytubecurrent(xrayTubeCurrent);
         instance.setSpacingbetweenslices(spacingBetweenSlices);
+        instance.setCreateddate(new Date());
+        instance.setModifieddate(new Date());
 
         return instance;
     }

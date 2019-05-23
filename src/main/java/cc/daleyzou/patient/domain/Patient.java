@@ -59,6 +59,7 @@ public class Patient {
     /**
      * 心脏射血分数
      */
+    @Column(name = "ef")
     private Float ef;
 
     /**

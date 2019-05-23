@@ -6,6 +6,8 @@
  */
 package cc.daleyzou.patient.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * CountService
  * @description 计算射血分数
@@ -13,6 +15,7 @@ package cc.daleyzou.patient.service;
  * @date 2019年03月24日 18:49
  * @version 1.0.0
  */
+@Service
 public interface CountService {
     /**
      * CountService
@@ -40,5 +43,16 @@ public interface CountService {
     void saveData(Long pkTBLPatientID);
 //
    // 计算射血分数
-    void countEF();
+    void countEF(Long pkTBLPatientID);
+
+    /**
+     * CountService
+     * @description 计算图片中白色像素点的个数
+     * @param pkTBLPatientID
+     * @return
+     * @author daleyzou
+     * @date 2019/5/23 9:36
+     * @version 1.0.0
+     */
+    void countNum(Long pkTBLPatientID);
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.daleyzou.patient.dao.CountMapper">
+  <resultMap id="BaseResultMap" type="cc.daleyzou.patient.domain.Count">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="edv" jdbcType="REAL" property="edv" />
+    <result column="es" jdbcType="REAL" property="es" />
+    <result column="patient_id" jdbcType="BIGINT" property="patientId" />
+    <result column="slice_location" jdbcType="REAL" property="sliceLocation" />
+    <result column="edv_instance_id" jdbcType="BIGINT" property="edvInstanceId" />
+    <result column="edv_sop_instance_uid" jdbcType="VARCHAR" property="edvSopInstanceUid" />
+    <result column="es_instance_id" jdbcType="BIGINT" property="esInstanceId" />
+    <result column="es_sop_instance_uid" jdbcType="VARCHAR" property="esSopInstanceUid" />
+    <result column="max_num" jdbcType="INTEGER" property="maxNum" />
+    <result column="min_num" jdbcType="INTEGER" property="minNum" />
+    <result column="instance_uid_all" jdbcType="LONGVARCHAR" property="instanceUidAll" />
+  </resultMap>
+</mapper>
