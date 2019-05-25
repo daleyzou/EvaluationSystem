@@ -6,6 +6,7 @@ import cc.daleyzou.patient.handler.IncomingFileHandler;
 import cc.daleyzou.patient.server.DicomServer;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
+import org.opencv.core.Core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +37,7 @@ public class Application {
     private static Logger log = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         SpringApplication.run(Application.class, args);
         log.info("《《《《《《 MRI System started up successfully at {} {} 》》》》》》", LocalDate.now(), LocalTime.now());
     }

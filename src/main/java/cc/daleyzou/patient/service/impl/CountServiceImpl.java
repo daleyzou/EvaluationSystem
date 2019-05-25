@@ -19,6 +19,12 @@ import cc.daleyzou.patient.service.CountService;
 import org.apache.commons.io.FilenameUtils;
 import org.dcm4che3.tool.dcm2jpg.Dcm2Jpg;
 
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +68,13 @@ public class CountServiceImpl implements CountService {
 
     String pacsResultPath = Constant.TEMP_RESULT;
 
+    // 勾画结果存放目录
+    String sketchResultPath = Constant.SKETCH_RESULT;
+
     private String pacsDcmStoragePath = Constant.STORAGE_DCM;
 
     @Override
-    public void moveJpgToDir(Long pkTBLPatientID) {
+    public void moveJpgToDirTest(Long pkTBLPatientID) {
         try {
 
             // 查询该患者的所有心脏dcm文件
@@ -86,6 +95,51 @@ public class CountServiceImpl implements CountService {
                 dcm2Jpg.initImageWriter("PNG", "PNG", null, null, null);
                 String newfilename = FilenameUtils.removeExtension(dicomFile.getName()) + PNG_EXT;
                 String outputPath = pacsOriginalPath + pkTBLPatientID.toString() + num + "/";
+                // 目录不存在就创建
+                boolean orExistsDir = FileUtils.createOrExistsDir(outputPath);
+                if (!orExistsDir){
+                    LOG.error("创建目录失败");
+                }
+                File tempImage = new File(outputPath, newfilename);
+                // 如果文件不存在，就进行文件转换
+                if (!tempImage.exists()) {
+                    dcm2Jpg.convert(dicomFile, tempImage);
+                }
+
+                if (!tempImage.exists())
+                    // 文件不存在
+                    throw new Exception();
+            }
+            // 创建心脏分割结果存放目录
+            String resultPath = pacsResultPath + pkTBLPatientID + "/";
+            // 目录不存在就创建
+            boolean orExistsDir = FileUtils.createOrExistsDir(resultPath);
+            if (!orExistsDir){
+                LOG.error("创建心脏分割结果存放目录失败");
+            }
+        }catch (Exception e){
+            String message = "将患者id为" + pkTBLPatientID.toString() + "进行文件处理失败！";
+            LOG.error(message, e);
+        }
+    }
+
+    @Override
+    public void moveJpgToDir(Long pkTBLPatientID) {
+        try {
+
+            // 查询该患者的所有心脏dcm文件
+            List<Instance> instances = instanceMapper.findAllByPkTBLPatientID(pkTBLPatientID);
+            if (CollectionUtils.isEmpty(instances)) {
+                // TODO 没有这个患者的dcm文件数据
+                System.out.println("没有患者数据");
+                LOG.error("没有患者数据");
+            }
+            for (Instance instance : instances) {
+                File dicomFile = new File(pacsDcmStoragePath + "/" + instance.getMediastoragesopinstanceuid() + ".dcm");
+                Dcm2Jpg dcm2Jpg = new Dcm2Jpg();
+                dcm2Jpg.initImageWriter("PNG", "PNG", null, null, null);
+                String newfilename = FilenameUtils.removeExtension(dicomFile.getName()) + PNG_EXT;
+                String outputPath = pacsOriginalPath + pkTBLPatientID.toString() + "/";
                 // 目录不存在就创建
                 boolean orExistsDir = FileUtils.createOrExistsDir(outputPath);
                 if (!orExistsDir){
@@ -232,7 +286,7 @@ public class CountServiceImpl implements CountService {
             Map.Entry<Float, List<Instance>> entry = entries.next();
 
             // 小数据量不计入分析
-            if (entry.getValue().size() < 15){
+            if (entry.getValue().size() < 10){
                 continue;
             }
 
@@ -279,5 +333,53 @@ public class CountServiceImpl implements CountService {
         patientMapper.updateByPrimaryKey(patient);
 
         System.out.println("Test");
+    }
+
+    @Override
+    public void sketchPicture(Long pkTBLPatientID) {
+        Example example = new Example(Count.class);
+        Example.Criteria exampleCriteria = example.createCriteria();
+        exampleCriteria.andCondition("patient_id=", pkTBLPatientID);
+        List<Count> counts = countMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(counts)){
+            LOG.info("patient_id=" + pkTBLPatientID.toString() + "数据库数据为空！");
+            return;
+        }
+        List<String> list = new ArrayList<>();
+        for (Count count : counts){
+            String[] split = count.getInstanceUidAll().split(",");
+            list.addAll(Arrays.asList(split));
+        }
+        // 检查输出目录是否存在
+        // 创建勾画图片结果存放目录
+        String sketchPath = sketchResultPath + pkTBLPatientID + "/";
+        // 目录不存在就创建
+        boolean orExistsDir = FileUtils.createOrExistsDir(sketchPath);
+        if (!orExistsDir){
+            LOG.error("创建心脏图片勾画结果存放目录失败");
+        }
+        // 遍历该患者下每一个切片的每一个心脏图像的所有勾画
+        for (String str : list){
+            str = str.trim();
+            Mat src = Imgcodecs.imread(pacsResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
+            Mat dst = src.clone();
+            Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGRA2GRAY);
+            Imgproc.adaptiveThreshold(dst, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C,
+                    Imgproc.THRESH_BINARY_INV, 3, 3);
+
+            java.util.List<MatOfPoint> contours = new java.util.ArrayList<MatOfPoint>();
+            Mat hierarchy = new Mat();
+            Imgproc.findContours(dst, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_NONE,
+                    new Point(0, 0));
+            Mat resultSrc = Imgcodecs.imread(pacsOriginalPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
+
+            for (int i = 0; i < contours.size(); i++)
+            {
+                Imgproc.drawContours(resultSrc, contours, i, new Scalar(0,0,255), 1);
+            }
+
+            Imgcodecs.imwrite(sketchResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT, resultSrc);
+            LOG.info("已标记图片：" + str + PNG_EXT);
+        }
     }
 }

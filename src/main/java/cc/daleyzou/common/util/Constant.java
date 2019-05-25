@@ -17,5 +17,6 @@ public class Constant {
 
 	public static final String STORAGE_IMAGE = "D:/Graduation/EasyPACS/tmp/img/";
 
-
+	// 勾画结果存放目录
+	public static final String SKETCH_RESULT = "D:/Graduation/EasyPACS/tmp/workspace/sketch/";
 }

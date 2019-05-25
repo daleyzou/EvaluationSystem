@@ -38,4 +38,17 @@ public class CountController {
     public void testCountNum(@PathVariable Long pkTBLPatientID) {
         countService.countNum(pkTBLPatientID);
     }
+
+    @RequestMapping(value = "/patient/moveJpgToDir/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public void moveJpgToDir(@PathVariable Long pkTBLPatientID) {
+        countService.moveJpgToDir(pkTBLPatientID);
+    }
+
+    @RequestMapping(value = "/patient/sketchPicture/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public void sketchPicture(@PathVariable Long pkTBLPatientID) {
+        countService.sketchPicture(pkTBLPatientID);
+    }
+
 }

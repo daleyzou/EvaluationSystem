@@ -26,6 +26,7 @@ public interface CountService {
      * @date 2019/4/10 8:40
      * @version 1.0.0
      */
+    void moveJpgToDirTest(Long pkTBLPatientID);
     void moveJpgToDir(Long pkTBLPatientID);
 
     /**
@@ -47,7 +48,7 @@ public interface CountService {
 
     /**
      * CountService
-     * @description 计算图片中白色像素点的个数
+     * @description 计算图片中白色像素点的个数，计算射血分数
      * @param pkTBLPatientID
      * @return
      * @author daleyzou
@@ -55,4 +56,15 @@ public interface CountService {
      * @version 1.0.0
      */
     void countNum(Long pkTBLPatientID);
+
+    /**
+     * CountService
+     * @description 标记图片
+     * @param pkTBLPatientID
+     * @return
+     * @author daleyzou
+     * @date 2019/5/24 18:05
+     * @version 1.0.0
+     */
+    void sketchPicture(Long pkTBLPatientID);
 }
