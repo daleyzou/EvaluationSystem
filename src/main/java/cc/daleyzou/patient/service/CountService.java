@@ -6,7 +6,10 @@
  */
 package cc.daleyzou.patient.service;
 
+import cc.daleyzou.patient.domain.Count;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * CountService
@@ -67,4 +70,28 @@ public interface CountService {
      * @version 1.0.0
      */
     void sketchPicture(Long pkTBLPatientID);
+    void sketchPictureTest(Long pkTBLPatientID);
+
+    /**
+     * CountService
+     * @description 获取患者的每一个切片数据
+     * @param pkTBLPatientID
+     * @return
+     * @author daleyzou
+     * @date 2019/5/25 14:33
+     * @version 1.0.0
+     */
+    List<Count> getSketchPicture(Long pkTBLPatientID);
+
+    /**
+     * CountService
+     * @description 得到患者该切片下的计算数据
+     * @param pkTBLPatientID
+     * @param sliceLocation
+     * @return
+     * @author daleyzou
+     * @date 2019/5/25 18:15
+     * @version 1.0.0
+     */
+    Count getSliceSketchPicture(Long pkTBLPatientID, String sliceLocation);
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout"
+	  xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<style>
+		.jpgcontainer{width:500px;height:400px;}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
+	<script data-th-src="@{js/canvas-keyframes.min.js}"></script>
+	<script th:inline="javascript">
+        // 初始化vConsole
+        // window.vConsole = new window.VConsole();
+        console.info('欢迎使用 vConsole。可用于展示 console 日志，方便开发、调试。');
+
+        window.onload = function(){
+            var count = 0;
+            var imgArr = [];
+            /*<![CDATA[*/
+            var uids = [[${uids}]]
+            /*]]>*/
+            for(var i=1;i<=uids.length;i++){
+                (function(i){
+                    var img = new Image();
+                    img.onload = function(){
+                        img.onload = null;
+                        count++;
+                        // 有可能图片加载有快有满慢，所以用角标存
+                        imgArr[i-1] = img;
+                        if(count==uids.length){
+                            keyFrames(imgArr);
+                        }
+                    }
+                    img.onerror = function(){
+                    }
+                    img.src = 'sketchImgs/'+uids[i-1]+'.png';
+                })(i);
+            }
+        }
+        var keyFrames;
+        function keyFrames(imgArr){
+            keyFrames = new CanvasKeyFrames(document.querySelector('.jpgcontainer'), 'array', imgArr, {
+                fps:10,
+                width:375,
+                height:612
+            });
+            keyFrames.play();
+        }
+	</script>
+</head>
+<body>
+	<div layout:fragment="content" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+">
+		<div class="jpgcontainer">
+
+		</div>
+	</div>
+</body>
+</html>

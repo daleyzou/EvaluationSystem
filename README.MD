@@ -7,3 +7,10 @@ http://localhost:8080/patient/moveJpgToDir/5
 ### 勾画图片
 http://localhost:8080/patient/sketchPicture/5
 
+### 根据患者、切片 显示动画
+http://localhost:8080/sketchAnimation?pkTBLPatientID=5&sliceLocation=-63.669
+
+### 根据患者、切片 显示图片轮播
+http://localhost:8080/sketchPicture?pkTBLPatientID=5&sliceLocation=-63.669
+
+
