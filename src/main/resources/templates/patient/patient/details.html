@@ -156,8 +156,9 @@
 					
 				</div>
 				<div id="tabs-2">
-					<p>To do</p>
+					<p th:text="${patient.ef}">To do</p>
 					<p>射血分数计算展示</p>
+					<a th:href="${'/chart?pkTBLPatientID='+patient?.pktblpatientid}" target="_blank">查看处理结果</a>
 				</div>
 </div>
 			

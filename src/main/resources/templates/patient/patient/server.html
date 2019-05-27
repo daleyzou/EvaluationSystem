@@ -26,9 +26,7 @@
       					<tr>         					
          					<th>Pk Patient Id</th>
          					<th>Patient Name</th>
-         					<th>Patient ID</th>         				
-         					<th>Sex</th>
-         					<th>Age</th>
+         					<th>Process Result</th>
          					<th>Created Date</th>
          					<th>Modified Date</th>         					
       					</tr>
@@ -37,15 +35,13 @@
       					<tr th:each="patient,status : ${patients}" >      						
          					<td><a th:href="${'/details?pkTBLPatientID='+patient?.pktblpatientid}" th:text="${patient?.pktblpatientid}"></a></td>
          					<td><a th:href="${'/details?pkTBLPatientID='+patient?.pktblpatientid}" th:text="${patient?.patientname}"></a></td>
-         					<td th:text="${patient?.patientid}"></td>
-         					<td th:text="${patient?.patientsex}"></td>
-         					<td th:text="${patient?.patientage}"></td>
+         					<td><a th:href="${'/chart?pkTBLPatientID='+patient?.pktblpatientid}" target="_blank">处理结果</a></td>
          					<td th:text="${patient?.createddate}"></td>
          					<td th:text="${patient?.modifieddate}"></td>
          					
       					</tr>
       					<tr th:unless="${patients}">
-							<td colspan="8">No patients found</td>
+							<td colspan="5">No patients found</td>
 						</tr>
       					
    					</tbody>

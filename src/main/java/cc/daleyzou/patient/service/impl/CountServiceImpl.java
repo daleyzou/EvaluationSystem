@@ -445,4 +445,14 @@ public class CountServiceImpl implements CountService {
         Count count = countMapper.selectOneByExample(countExample);
         return count;
     }
+
+    @Override
+    public List<Count> getSliceChart(Long pkTBLPatientID) {
+        Example countExample = new Example(Count.class);
+        Example.Criteria countExampleCriteria = countExample.createCriteria();
+        countExampleCriteria.andCondition("patient_id=", pkTBLPatientID);
+        countExample.setOrderByClause("slice_location DESC");
+        List<Count> counts = countMapper.selectByExample(countExample);
+        return counts;
+    }
 }

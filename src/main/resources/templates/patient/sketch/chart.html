@@ -1,11 +1,80 @@
 <!DOCTYPE HTML>
 <html lang="eng" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/layout">
 <head>	
-    <title>Dicom Server</title> 
- 	<!-- custom js file -->
-	<script th:src="@{js/app/patient/server.js}"></script>
+    <title>Dicom Server</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		/* css 代码  */
+	</style>
+	<script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/themes/sand-signika.js"></script>
 	<script data-th-src="@{js/app/patient/server.js}"></script>
-	<script src="../../../static/js/server.js"></script>
+	<script th:inline="javascript">
+        var ctx = [[@{/}]];
+	</script>
+	<script th:inline="javascript">
+        $(document).ready(function() {
+            /*<![CDATA[*/
+            var sliceLocations = [[${sliceLocations}]]
+            var es = [[${es}]]
+            var edv = [[${edv}]]
+            /*]]>*/
+            var chart = Highcharts.chart('chartContainer', {
+                    chart: {
+                        type: 'spline'
+                    },
+                    title: {
+                        text: '舒张末期和收缩末期的容积'
+                    },
+                    subtitle: {
+                        text: '数据来源: 评测系统数据库'
+                    },
+                    xAxis: {
+                        categories: sliceLocations
+                    },
+                    yAxis: {
+                        title: {
+                            text: '容积'
+                        },
+                        labels: {
+                            formatter: function () {
+                                return this.value + 'ml';
+                            }
+                        }
+                    },
+                    tooltip: {
+                        crosshairs: true,
+                        shared: true
+                    },
+                    plotOptions: {
+                        spline: {
+                            marker: {
+                                radius: 4,
+                                lineColor: '#666666',
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    series: [{
+                        name: '收缩末期',
+                        marker: {
+                            symbol: 'square'
+                        },
+                        data: es
+                    }, {
+                        name: '舒张末期',
+                        marker: {
+                            symbol: 'diamond'
+                        },
+                        data: edv
+                    }]
+                });
+        })
+
+	</script>
 </head>
 <body>
 
@@ -14,10 +83,49 @@
 <div class="container">
 	<div class="page-header">		
 		<h1>PACS Server</h1>
-		<h2><div id='divLive' ></div></h2>
+	</div>
+	<div id="chartContainer" style="min-width:400px;height:400px"></div>
+	<div class="row">
+		<div class="col-sm-12  text-center">
+
+			<table id="tblPatients"  class="table table-striped fixed-header">
+				<caption>切片数据</caption>
+				<thead>
+				<tr>
+					<th>切片位置</th>
+					<th>收缩末期容积(ml)</th>
+					<th>舒张末期容积(ml)</th>
+					<th>查看分割图片</th>
+					<th>查看分割动画</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="count,status : ${counts}" >
+					<td th:text="${count?.sliceLocation}"></td>
+					<td th:text="${count?.es}"></td>
+					<td th:text="${count?.edv}"></td>
+					<td><a th:href="${'/sketchPicture?pkTBLPatientID='+count.patientId+'&sliceLocation='+count.sliceLocation}" target="_blank">查看图片</a></td>
+					<td><a th:href="${'/sketchAnimation?pkTBLPatientID='+count.patientId+'&sliceLocation='+count.sliceLocation}" target="_blank">查看动画</a></td>
+				</tr>
+				<tr th:unless="${counts}">
+					<td colspan="5">没有发现切片数据</td>
+				</tr>
+
+				</tbody>
+			</table>
+
+			<table class="table table-striped fixed-header">
+				<caption>左心室射血分数</caption>
+				<thead>
+				<tr>
+					<th th:text="${patient.ef}"></th>
+				</tr>
+				</thead>
+			</table>
+
+		</div>
 	</div>
 </div>
-
 </div>
 
 

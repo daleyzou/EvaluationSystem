@@ -94,4 +94,15 @@ public interface CountService {
      * @version 1.0.0
      */
     Count getSliceSketchPicture(Long pkTBLPatientID, String sliceLocation);
+
+    /**
+     * CountService
+     * @description 得到患者每一个切片的数据，用户在网页上展示
+     * @param pkTBLPatientID
+     * @return
+     * @author daleyzou
+     * @date 2019/5/27 13:38
+     * @version 1.0.0
+     */
+    List<Count> getSliceChart(Long pkTBLPatientID);
 }

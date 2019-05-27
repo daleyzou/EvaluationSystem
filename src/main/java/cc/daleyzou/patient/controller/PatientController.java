@@ -212,7 +212,6 @@ public class PatientController extends BaseController {
     @RequestMapping(value = "/showimage/{pkTBLInstanceID}", method = RequestMethod.GET)
     public @ResponseBody
     String showImage(@PathVariable Long pkTBLInstanceID) throws IOException {
-
         String img = "";
         File file = null;
         int width = 0;

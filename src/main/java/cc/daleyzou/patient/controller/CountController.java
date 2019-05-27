@@ -6,16 +6,21 @@
  */
 package cc.daleyzou.patient.controller;
 
+import cc.daleyzou.patient.dao.PatientMapper;
 import cc.daleyzou.patient.domain.Count;
+import cc.daleyzou.patient.domain.Patient;
 import cc.daleyzou.patient.service.CountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,6 +37,8 @@ public class CountController {
 
     @Autowired
     CountService countService;
+    @Autowired
+    PatientMapper patientMapper;
 
     @RequestMapping(value = "/patient/num/{pkTBLPatientID}", method = RequestMethod.GET)
     @ResponseBody
@@ -91,5 +98,32 @@ public class CountController {
         List<String> uids = Arrays.asList(strs);
         model.addAttribute("uids", uids);
         return "patient/sketch/picture";
+    }
+
+    @RequestMapping(value = "/chart", method = RequestMethod.GET)
+    public String getSliceChart(@RequestParam(value = "pkTBLPatientID") Long pkTBLPatientID,
+            Model model) {
+        List<Count> counts = countService.getSliceChart(pkTBLPatientID);
+        List<String> sliceLocations = new ArrayList<>();
+        List<Float> es = new ArrayList<>();
+        List<Float> edv = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(counts)){
+            return "error";
+        }
+        for (Count count : counts){
+            sliceLocations.add(count.getSliceLocation().toString());
+            es.add(count.getEs());
+            edv.add(count.getEdv());
+        }
+
+        Patient patient = patientMapper.selectByPrimaryKey(pkTBLPatientID);
+
+        model.addAttribute("sliceLocations", sliceLocations);
+        model.addAttribute("es", es);
+        model.addAttribute("edv", edv);
+        model.addAttribute("counts", counts);
+        model.addAttribute("patient", patient);
+        return "patient/sketch/chart";
     }
 }
