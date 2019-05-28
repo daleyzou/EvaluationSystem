@@ -17,6 +17,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 @MapperScan("cc.daleyzou.*.dao")
 @EnableConfigurationProperties({FebsProperties.class})
 @EnableCaching
+@EnableScheduling
 @EnableAsync
 public class Application {
 

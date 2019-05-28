@@ -2,7 +2,11 @@ package cc.daleyzou.common.util;
 
 public class Constant {
 
-	static final String XLSX_SUFFIX = ".xlsx";
+    public static final String DIFSTORAGE_DCM = "D:/Graduation/EasyPACS/tmp/dcmdif/";
+
+    public static final String CONTRAST_IMAGE = "D:/Graduation/EasyPACS/tmp/workspace/contrast/";
+
+    static final String XLSX_SUFFIX = ".xlsx";
 
 	static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 

@@ -24,18 +24,20 @@ public class DBServiceImpl implements DBService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DBServiceImpl.class);
 
-
     @Autowired
     InstanceMapper instanceMapper;
+
     @Autowired
     SeriesMapper seriesMapper;
+
     @Autowired
     StudyMapper studyMapper;
+
     @Autowired
     PatientMapper patientMapper;
+
     @Autowired
     EquipmentMapper equipmentMapper;
-
 
     @Autowired
     private ActiveDicoms activeDicoms;
@@ -50,7 +52,7 @@ public class DBServiceImpl implements DBService {
         Criteria patientExampleCriteria = patientExample.createCriteria();
         patientExampleCriteria.andCondition("patientID=", reader.getPatientID());
         List<Patient> patients = patientMapper.selectByExample(patientExample);
-        Patient patient = (patients.isEmpty()?null:patients.get(0));
+        Patient patient = (patients.isEmpty() ? null : patients.get(0));
         if (patient == null) {
             //let's create new patient
             patient = DicomEntityBuilder
@@ -152,7 +154,6 @@ public class DBServiceImpl implements DBService {
         if (instance == null) {//let's create new instance along with dependent objects
 
             // 计算掉了，还需要计算 spacingBetweenSlices
-
 
             instance = DicomEntityBuilder
                     .newInstance(reader.getAcquisitionDateTime(), reader.getContentDateTime(), reader.getExposureTime(),

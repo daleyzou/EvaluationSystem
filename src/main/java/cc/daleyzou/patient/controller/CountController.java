@@ -6,6 +6,7 @@
  */
 package cc.daleyzou.patient.controller;
 
+import cc.daleyzou.patient.component.ScheduledTasks;
 import cc.daleyzou.patient.dao.PatientMapper;
 import cc.daleyzou.patient.domain.Count;
 import cc.daleyzou.patient.domain.Patient;
@@ -39,6 +40,8 @@ public class CountController {
     CountService countService;
     @Autowired
     PatientMapper patientMapper;
+    @Autowired
+    ScheduledTasks tasks;
 
     @RequestMapping(value = "/patient/num/{pkTBLPatientID}", method = RequestMethod.GET)
     @ResponseBody
@@ -56,6 +59,31 @@ public class CountController {
     @ResponseBody
     public void moveJpgToDir(@PathVariable Long pkTBLPatientID) {
         countService.moveJpgToDir(pkTBLPatientID);
+    }
+
+    @RequestMapping(value = "/test/moveJpgToDir/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public void moveJpgToDirTest(@PathVariable Long pkTBLPatientID) {
+        countService.moveJpgToDirTest(pkTBLPatientID);
+    }
+
+    @RequestMapping(value = "/test/contrast/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public String constractPicture(@PathVariable Long pkTBLPatientID) {
+        return countService.constractPicture(pkTBLPatientID);
+    }
+
+    @RequestMapping(value = "/splitPicture/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public String splitPicture(@PathVariable Long pkTBLPatientID) {
+        return countService.splitPicture(pkTBLPatientID);
+    }
+
+
+    @RequestMapping(value = "/patient/moveDcmToDir/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public void moveDcmToDir(@PathVariable Long pkTBLPatientID) {
+        countService.moveDcmToDir(pkTBLPatientID);
     }
 
     @RequestMapping(value = "/patient/sketchPicture/{pkTBLPatientID}", method = RequestMethod.GET)
@@ -109,7 +137,7 @@ public class CountController {
         List<Float> edv = new ArrayList<>();
 
         if (CollectionUtils.isEmpty(counts)){
-            return "error";
+            return "patient/sketch/nocount";
         }
         for (Count count : counts){
             sliceLocations.add(count.getSliceLocation().toString());
@@ -125,5 +153,19 @@ public class CountController {
         model.addAttribute("counts", counts);
         model.addAttribute("patient", patient);
         return "patient/sketch/chart";
+    }
+
+    @RequestMapping(value = "/chart/{uid}", method = RequestMethod.GET)
+    public @ResponseBody String getSliceChartImg(@PathVariable String uid) {
+        uid = uid + ".png";
+        String img = "<img  src=\'/sketchImgs/" + uid + "\' style=\'width: " + 512 + "px; height: " + 512 + "px;\' /> ";
+
+        return img;
+    }
+
+    @RequestMapping(value = "/ef/{pkTBLPatientID}", method = RequestMethod.GET)
+    public @ResponseBody String countEF(@PathVariable Long pkTBLPatientID) {
+        tasks.countEF();
+        return "成功";
     }
 }

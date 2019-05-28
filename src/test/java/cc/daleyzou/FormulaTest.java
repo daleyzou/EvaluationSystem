@@ -9,8 +9,7 @@ package cc.daleyzou;
 import cc.daleyzou.patient.domain.Instance;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -42,5 +41,20 @@ public class FormulaTest {
         String collect = list.stream().map(Instance::getSopinstanceuid).collect(Collectors.joining(","));
 //        String join = String.join(",", collect);
         System.out.println(collect);
+    }
+
+    @Test
+    public void testTreeMap(){
+        Map<Float,String> x = new TreeMap<>();
+        x.put(Float.valueOf("5.0"),"string1");
+        x.put(Float.valueOf("9.0"),"string2");
+        x.put(Float.valueOf("1.0"),"string3");
+
+        Iterator<Map.Entry<Float, String>> entries = x.entrySet().iterator();
+
+        while (entries.hasNext()) {
+            Map.Entry<Float, String> entry = entries.next();
+            System.out.println(entry.getKey());
+        }
     }
 }

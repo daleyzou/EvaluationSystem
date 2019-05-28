@@ -7,6 +7,7 @@
 package cc.daleyzou.patient.service.impl;
 
 import cc.daleyzou.common.util.Constant;
+import cc.daleyzou.common.util.FileUtil;
 import cc.daleyzou.common.util.FileUtils;
 import cc.daleyzou.patient.dao.CountMapper;
 import cc.daleyzou.patient.dao.InstanceMapper;
@@ -65,13 +66,51 @@ public class CountServiceImpl implements CountService {
     PatientMapper patientMapper;
 
     String pacsOriginalPath = Constant.TEMP_IMAGE;
+    String contrastPaths = Constant.CONTRAST_IMAGE;
 
     String pacsResultPath = Constant.TEMP_RESULT;
+    String pacsDifDcmStoragePath = Constant.DIFSTORAGE_DCM;
 
     // 勾画结果存放目录
     String sketchResultPath = Constant.SKETCH_RESULT;
 
     private String pacsDcmStoragePath = Constant.STORAGE_DCM;
+
+    @Override
+    public void moveDcmToDir(Long pkTBLPatientID) {
+        try {
+
+            // 查询该患者的所有心脏dcm文件
+            List<Instance> instances = instanceMapper.findAllByPkTBLPatientID(pkTBLPatientID);
+            if (CollectionUtils.isEmpty(instances)) {
+                // TODO 没有这个患者的dcm文件数据
+                System.out.println("没有患者数据");
+                LOG.error("没有患者数据");
+            }
+            int num = 1;
+            int count = 0;
+            for (Instance instance : instances) {
+                File dicomFile = new File(pacsDcmStoragePath + "/" + instance.getMediastoragesopinstanceuid() + ".dcm");
+                count++;
+                if (count % 90 == 0){
+                    num++;
+                }
+                String outputPath = pacsDifDcmStoragePath + pkTBLPatientID.toString() + String.valueOf(num) + "/";
+                // 目录不存在就创建
+                boolean orExistsDir = FileUtils.createOrExistsDir(outputPath);
+                if (!orExistsDir){
+                    LOG.error("创建目录失败");
+                }
+                File outputfile = new File(outputPath);
+                org.apache.commons.io.FileUtils.copyFileToDirectory(dicomFile, outputfile);
+
+            }
+
+        }catch (Exception e){
+            String message = "移动dcm文件数据" + pkTBLPatientID.toString() + "失败！";
+            LOG.error(message, e);
+        }
+    }
 
     @Override
     public void moveJpgToDirTest(Long pkTBLPatientID) {
@@ -86,7 +125,7 @@ public class CountServiceImpl implements CountService {
             int count = 1;
             int num = 1;
             for (Instance instance : instances) {
-                if (count % 50 == 0){
+                if (count % 90 == 0){
                     num++;
                 }
                 count++;
@@ -95,8 +134,10 @@ public class CountServiceImpl implements CountService {
                 dcm2Jpg.initImageWriter("PNG", "PNG", null, null, null);
                 String newfilename = FilenameUtils.removeExtension(dicomFile.getName()) + PNG_EXT;
                 String outputPath = pacsOriginalPath + pkTBLPatientID.toString() + num + "/";
+                String contrastPath = contrastPaths + pkTBLPatientID.toString() + num + "/";
                 // 目录不存在就创建
                 boolean orExistsDir = FileUtils.createOrExistsDir(outputPath);
+                boolean orExistsCDir = FileUtils.createOrExistsDir(contrastPath);
                 if (!orExistsDir){
                     LOG.error("创建目录失败");
                 }
@@ -169,39 +210,42 @@ public class CountServiceImpl implements CountService {
     }
 
     @Override
-    public void splitPicture(Long pkTBLPatientID) {
+    public String splitPicture(Long pkTBLPatientID) {
         // 需传入的参数
-        String a = "你好", b = "123", c = "邹代发", d = "qingdao";
-        System.out.println("Java中动态参数已经初始化,准备传参");
-        // 设置命令行传入参数
-        String[] args1 = new String[] { "python","D:\\PycharmProjects\\sementation_part(内膜)\\daleyzouGraduation.py", a,b, c, d };
-        //Java数据a,b,c,d传入Python
-        Process pr;
-        try {
-            pr = Runtime.getRuntime().exec(args1); //最核心的函数
+        LOG.info("Java中动态参数已经初始化,准备传参");
+        for (int i = 1; i <= 3; i++){
+            String dirname = "D:/Graduation/EasyPACS/tmp/workspace/contrast/" + pkTBLPatientID.toString() + String.valueOf(i);
+            String outname = "D:/Graduation/EasyPACS/tmp/workspace/result/" + pkTBLPatientID.toString();
+            // 设置命令行传入参数
+            String[] args1 = new String[] { "python","D:\\PycharmProjects\\sementation_part(内膜)\\splitPicture.py", dirname, outname };
+            //Java数据a,b,c,d传入Python
+            Process pr;
+            try {
+                LOG.info(dirname + "=>" + outname);
+                LOG.info(args1.toString());
+                pr = Runtime.getRuntime().exec(args1); //最核心的函数
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream(), "gbk"));
-            String line;
-            List<String> lines = new ArrayList<String>();
+                BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream(), "gbk"));
+                String line;
+                List<String> lines = new ArrayList<String>();
 
-            System.out.println("-----------------------------------------------");
+                LOG.info("-----------------------------------------------");
 
-            while ((line = in.readLine()) != null) {
-                System.out.println(line);
-                lines.add(line); //把Python的print值保存了下来
+                while ((line = in.readLine()) != null) {
+                    LOG.info(line);
+                    lines.add(line); //把Python的print值保存了下来
 
+                }
+                LOG.info("-------------------------------------------------");
+                in.close();
+                pr.waitFor();
+            } catch (Exception e) {
+                LOG.error(e.getMessage());
+                return "心脏图像分割失败！ 患者id为：" + pkTBLPatientID.toString();
             }
-            System.out.println("-------------------------------------------------");
-
-            in.close();
-
-            pr.waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        System.out.println("Java调Python结束");
-
+        LOG.info("Java调Python结束");
+        return "心脏图像分割成功！ 患者id为：" + pkTBLPatientID.toString();
     }
 
     @Override
@@ -254,7 +298,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public void countNum(Long pkTBLPatientID) {
         // 查询该患者的所有心脏dcm文件
-        HashMap<Float, List<Instance>> resultMap = new HashMap<>();
+        TreeMap<Float, List<Instance>> resultMap = new TreeMap<>();
         List<Instance> instances = instanceMapper.findAllByPkTBLPatientID(pkTBLPatientID);
         // 遍历实例，找出每个切片位置上的最大值、最小值
         for (Instance instance : instances) {
@@ -273,22 +317,22 @@ public class CountServiceImpl implements CountService {
             }
             instanceMapper.updateByPrimaryKey(instance);
         }
-        // 根据每个切片位置的像素点数量排序
-        Iterator<Map.Entry<Float, List<Instance>>> entries = resultMap.entrySet().iterator();
-
         Float pixelspacing = instances.get(0).getPixelspacing();
         Float height = instances.get(0).getSpacingbetweenslices();
 
+        if (CollectionUtils.isEmpty(resultMap)){
+            return;
+        }
+
         int maxCount = 0;
         int minCount = 0;
-
+        // 去掉：基底段切片和心尖段切片
+        resultMap.remove(resultMap.firstKey());
+        resultMap.remove(resultMap.lastKey());
+        // 根据每个切片位置的像素点数量排序
+        Iterator<Map.Entry<Float, List<Instance>>> entries = resultMap.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<Float, List<Instance>> entry = entries.next();
-
-            // 小数据量不计入分析
-            if (entry.getValue().size() < 10){
-                continue;
-            }
 
             // 该切片下的舒张末期
             Instance max = Collections.max(entry.getValue());
@@ -332,7 +376,7 @@ public class CountServiceImpl implements CountService {
         patient.setEf(ef);
         patientMapper.updateByPrimaryKey(patient);
 
-        System.out.println("Test");
+        System.out.println("计算结束！");
     }
 
     @Override
@@ -429,6 +473,47 @@ public class CountServiceImpl implements CountService {
             Imgcodecs.imwrite(sketchResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT, resultSrc);
             LOG.info("已标记图片：" + str + PNG_EXT);
         }
+    }
+
+    @Override
+    public String constractPicture(Long pkTBLPatientID) {
+        // 需传入的参数
+        System.out.println("Java中动态参数已经初始化,准备传参");
+        for (int i = 1; i <= 3; i++){
+            String dirname = "D:/Graduation/EasyPACS/tmp/workspace/original/" + pkTBLPatientID.toString() + String.valueOf(i);
+            String outname = "D:/Graduation/EasyPACS/tmp/workspace/contrast/" + pkTBLPatientID.toString() + String.valueOf(i);
+            // 设置命令行传入参数  test/CLAHE_hist.py
+            String[] args1 = new String[] { "python","D:\\PycharmProjects\\sementation_part(内膜)\\test\\CLAHE_hist.py", dirname, outname };
+            //Java数据a,b,c,d传入Python
+            Process pr;
+            try {
+                pr = Runtime.getRuntime().exec(args1); //最核心的函数
+                LOG.info(args1.toString());
+                BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream(), "gbk"));
+                String line;
+                List<String> lines = new ArrayList<String>();
+
+                System.out.println("-----------------------------------------------");
+
+                while ((line = in.readLine()) != null) {
+                    System.out.println(line);
+                    lines.add(line); //把Python的print值保存了下来
+
+                }
+                System.out.println("-------------------------------------------------");
+
+                in.close();
+
+                pr.waitFor();
+            } catch (Exception e) {
+                LOG.error(e.getMessage());
+                return "对" + pkTBLPatientID.toString() + "图片二值化处理失败！";
+            }
+            LOG.info(dirname + " => "+ outname + "成功！");
+        }
+        LOG.info("Java调Python结束");
+
+        return "对" + pkTBLPatientID.toString() + "图片二值化处理成功！";
     }
 
     @Override

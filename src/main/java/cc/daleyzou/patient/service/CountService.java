@@ -20,6 +20,9 @@ import java.util.List;
  */
 @Service
 public interface CountService {
+
+    void moveDcmToDir(Long pkTBLPatientID);
+
     /**
      * CountService
      * @description 将要进行图像分割的图片移动到指定的目录
@@ -41,7 +44,7 @@ public interface CountService {
      * @date 2019/4/12 11:40
      * @version 1.0.0
      */
-    void splitPicture(Long pkTBLPatientID);
+    String splitPicture(Long pkTBLPatientID);
 
 //    // 将计算后得到的左心室面积存入instance的对应字段，patient表有一个字段用于标识是否已经计算射血分数
     void saveData(Long pkTBLPatientID);
@@ -71,6 +74,17 @@ public interface CountService {
      */
     void sketchPicture(Long pkTBLPatientID);
     void sketchPictureTest(Long pkTBLPatientID);
+
+    /**
+     * CountService
+     * @description 提高图片对比度
+     * @param pkTBLPatientID
+     * @return
+     * @author daleyzou
+     * @date 2019/5/28 19:51
+     * @version 1.0.0
+     */
+    String constractPicture(Long pkTBLPatientID);
 
     /**
      * CountService

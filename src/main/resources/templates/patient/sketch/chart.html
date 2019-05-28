@@ -12,6 +12,7 @@
 	<script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
 	<script src="https://code.highcharts.com.cn/highcharts/themes/sand-signika.js"></script>
 	<script data-th-src="@{js/app/patient/server.js}"></script>
+	<script th:src="@{js/app/patient/details.js}"></script>
 	<script th:inline="javascript">
         var ctx = [[@{/}]];
 	</script>
@@ -102,8 +103,14 @@
 				<tbody>
 				<tr th:each="count,status : ${counts}" >
 					<td th:text="${count?.sliceLocation}"></td>
-					<td th:text="${count?.es}"></td>
-					<td th:text="${count?.edv}"></td>
+					<td ><a class="fancybox-images fancybox.iframe"   th:href="${'/chart/'+count.esSopInstanceUid}" rel="image-gallery" th:text="${count?.es}">
+						测试代码
+					</a></td>
+					<td>
+						<a class="fancybox-images fancybox.iframe"   th:href="${'/chart/'+count.edvSopInstanceUid}" rel="image-gallery" th:text="${count?.edv}">
+							测试代码
+						</a>
+					</td>
 					<td><a th:href="${'/sketchPicture?pkTBLPatientID='+count.patientId+'&sliceLocation='+count.sliceLocation}" target="_blank">查看图片</a></td>
 					<td><a th:href="${'/sketchAnimation?pkTBLPatientID='+count.patientId+'&sliceLocation='+count.sliceLocation}" target="_blank">查看动画</a></td>
 				</tr>
@@ -122,6 +129,7 @@
 				</tr>
 				</thead>
 			</table>
+
 
 		</div>
 	</div>
