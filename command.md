@@ -1,0 +1,1 @@
+.\storescu -c WHATEVER@localhost:104 "D:\Graduation\challenge_training\SC-HF-I-1-004"\*

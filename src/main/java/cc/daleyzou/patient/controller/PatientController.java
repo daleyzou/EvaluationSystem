@@ -269,7 +269,7 @@ public class PatientController extends BaseController {
     @RequestMapping(value = "/live", method = RequestMethod.GET)
     public @ResponseBody
     AjaxResult live() {
-        return new AjaxResult(true, activeDicoms.toString());
+        return new AjaxResult(true, "");
     }
 
 

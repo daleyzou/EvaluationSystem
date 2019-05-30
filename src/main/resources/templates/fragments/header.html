@@ -36,7 +36,7 @@
             
          	</div>
 			<ul class="nav navbar-nav navbar-left">
-				<li class="active"><a th:href="@{/}">Home</a></li>				
+				<li class="active"><a th:href="@{/server}">Home</a></li>
 				<li th:if="${session.HAS_RIGHT_VIEW_PROJECTS != null &amp;&amp; session.HAS_RIGHT_VIEW_PROJECTS == true }"><a href="#">Projects</a></li>
 				<li class="dropdown" th:if="${session.HAS_RIGHT_EDIT_USER != null &amp;&amp; session.HAS_RIGHT_EDIT_USER == true }">
 					<a th:href="@{/users}" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>

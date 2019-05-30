@@ -86,11 +86,19 @@ public class CountController {
         countService.moveDcmToDir(pkTBLPatientID);
     }
 
+    @RequestMapping(value = "/test/sketchPicture/{pkTBLPatientID}", method = RequestMethod.GET)
+    @ResponseBody
+    public void sketchPictureTest(@PathVariable Long pkTBLPatientID) {
+        countService.sketchPictureTest(pkTBLPatientID);
+    }
+
+
     @RequestMapping(value = "/patient/sketchPicture/{pkTBLPatientID}", method = RequestMethod.GET)
     @ResponseBody
     public void sketchPicture(@PathVariable Long pkTBLPatientID) {
         countService.sketchPicture(pkTBLPatientID);
     }
+
 
     @RequestMapping(value = "/sketch", method = RequestMethod.GET)
     public String getSketchPicture(@RequestParam(value = "pkTBLPatientID") Long pkTBLPatientID) {

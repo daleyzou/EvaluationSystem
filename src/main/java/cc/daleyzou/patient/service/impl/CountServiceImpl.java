@@ -437,41 +437,44 @@ public class CountServiceImpl implements CountService {
             LOG.info("patient_id=" + pkTBLPatientID.toString() + "数据库数据为空！");
             return;
         }
-        List<String> list = new ArrayList<>();
+        int p = 1;
         for (Count count : counts){
             String[] split = count.getInstanceUidAll().split(",");
+            List<String> list = new ArrayList<>();
             list.addAll(Arrays.asList(split));
-        }
-        // 检查输出目录是否存在
-        // 创建勾画图片结果存放目录
-        String sketchPath = sketchResultPath + pkTBLPatientID + "/";
-        // 目录不存在就创建
-        boolean orExistsDir = FileUtils.createOrExistsDir(sketchPath);
-        if (!orExistsDir){
-            LOG.error("创建心脏图片勾画结果存放目录失败");
-        }
-        // 遍历该患者下每一个切片的每一个心脏图像的所有勾画
-        for (String str : list){
-            str = str.trim();
-            Mat src = Imgcodecs.imread(pacsResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
-            Mat dst = src.clone();
-            Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGRA2GRAY);
-            Imgproc.adaptiveThreshold(dst, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C,
-                    Imgproc.THRESH_BINARY_INV, 3, 3);
+            // 检查输出目录是否存在
+            // 创建勾画图片结果存放目录
+            String sketchPath = sketchResultPath + pkTBLPatientID.toString() + String.valueOf(p) + "/";
+            p++;
+            // 目录不存在就创建
+            boolean orExistsDir = FileUtils.createOrExistsDir(sketchPath);
+            if (!orExistsDir){
+                LOG.error("创建心脏图片勾画结果存放目录失败");
+            }
+            // 遍历该患者下每一个切片的每一个心脏图像的所有勾画
+            for (String str : list){
+                str = str.trim();
+                Mat src = Imgcodecs.imread(pacsResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
+                Mat dst = src.clone();
+                Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGRA2GRAY);
+                Imgproc.adaptiveThreshold(dst, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C,
+                        Imgproc.THRESH_BINARY_INV, 3, 3);
 
-            java.util.List<MatOfPoint> contours = new java.util.ArrayList<MatOfPoint>();
-            Mat hierarchy = new Mat();
-            Imgproc.findContours(dst, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_NONE,
-                    new Point(0, 0));
-            Mat resultSrc = Imgcodecs.imread(pacsOriginalPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
+                java.util.List<MatOfPoint> contours = new java.util.ArrayList<MatOfPoint>();
+                Mat hierarchy = new Mat();
+                Imgproc.findContours(dst, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_NONE,
+                        new Point(0, 0));
+                Mat resultSrc = Imgcodecs.imread(pacsOriginalPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT);
 
-            for (int i = 0; i < contours.size(); i++)
-            {
-                Imgproc.drawContours(resultSrc, contours, i, new Scalar(0,0,255), 1);
+                for (int i = 0; i < contours.size(); i++)
+                {
+                    Imgproc.drawContours(resultSrc, contours, i, new Scalar(0,0,255), 1);
+                }
+
+                Imgcodecs.imwrite(sketchPath + str + PNG_EXT, resultSrc);
+                LOG.info("已标记图片：" + str + PNG_EXT);
             }
 
-            Imgcodecs.imwrite(sketchResultPath + pkTBLPatientID.toString() + "/" + str + PNG_EXT, resultSrc);
-            LOG.info("已标记图片：" + str + PNG_EXT);
         }
     }
 

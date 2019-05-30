@@ -16,6 +16,9 @@ http://localhost:8080/test/contrast/5
 ### 勾画图片
 http://localhost:8080/patient/sketchPicture/5
 
+### 勾画患者每一个切片的数据
+http://localhost:8080/test/sketchPicture/5
+
 ### 根据患者、切片 显示动画
 http://localhost:8080/sketchAnimation?pkTBLPatientID=5&sliceLocation=-63.669
 

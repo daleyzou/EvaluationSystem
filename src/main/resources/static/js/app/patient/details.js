@@ -60,14 +60,14 @@ function initTree(){
 }
 
 function buildPatient(patient){
-	
+
 	return  "<table class='table table-striped  table-condensed fixed-header'>" +
 			"<caption>Patient</caption>" +
 			"<tbody>" +
-			"<tr><td>Patient Name</td><td>" + (patient.patientName==null?'':patient.patientName) + "</td></tr>" +
-			"<tr><td>Patient ID</td><td>" + (patient.patientID==null?'':patient.patientID) + "</td></tr>" +
-			"<tr><td>Patient Sex</td><td>" + (patient.patientSex==null?'':patient.patientSex) + "</td></tr>" +
-			"<tr><td>Patient Age</td><td>" + (patient.patientAge==null?'':patient.patientAge) + "</td></tr>" +
+			"<tr><td>Patient Name</td><td>" + (patient.patientname==null?'':patient.patientname) + "</td></tr>" +
+			"<tr><td>Patient ID</td><td>" + (patient.patientid==null?'':patient.patientid) + "</td></tr>" +
+			"<tr><td>Patient Sex</td><td>" + (patient.patientsex==null?'':patient.patientsex) + "</td></tr>" +
+			"<tr><td>Patient Age</td><td>" + (patient.patientage==null?'':patient.patientage) + "</td></tr>" +
 			"</tbody>" +
 			"</table>";
 }
@@ -77,16 +77,16 @@ function buildStudy(study){
 	return "<table class='table table-striped  table-condensed fixed-header'>" +
 			"<caption>Study</caption>" +
 			"<tbody>" +
-			"<tr><td>Study Description</td><td>" + (study.studyDescription==null?'':study.studyDescription) + "</td></tr>" +	  						
-			"<tr><td>Accession Number</td><td>" + (study.accessionNumber==null?'':study.accessionNumber) + "</td></tr>" +
-			"<tr><td>Study Instance UID</td><td>" + (study.studyInstanceUID==null?'':study.studyInstanceUID) + "</td></tr>" +
-			"<tr><td>Study ID</td><td>" + (study.studyID==null?'':study.studyID) + "</td></tr>" +
-			"<tr><td>Study Date Time</td><td>" + (study.studyDateTime==null?'':new Date(study.studyDateTime * 1000)) + "</td></tr>" +
-			"<tr><td>Study Priority ID</td><td>" + (study.studyPriorityID==null?'':study.studyPriorityID) + "</td></tr>" +
-			"<tr><td>Study Status ID</td><td>" + (study.studyStatusID==null?'':study.studyStatusID) + "</td></tr>" +
-			"<tr><td>Referring Physician Name</td><td>" + (study.referringPhysicianName==null?'':study.referringPhysicianName) + "</td></tr>" +
-			"<tr><td>Additional Patient History</td><td>" + (study.additionalPatientHistory==null?'':study.additionalPatientHistory) + "</td></tr>" +
-			"<tr><td>Admitting Diagnoses Description</td><td>" + (study.admittingDiagnosesDescription==null?'':study.admittingDiagnosesDescription) + "</td></tr>" +	  						
+			"<tr><td>Study Description</td><td>" + (study.studydescription==null?'':study.studydescription) + "</td></tr>" +
+			"<tr><td>Accession Number</td><td>" + (study.accessionnumber==null?'':study.accessionnumber) + "</td></tr>" +
+			"<tr><td>Study Instance UID</td><td>" + (study.studyinstanceuid==null?'':study.studyinstanceuid) + "</td></tr>" +
+			"<tr><td>Study ID</td><td>" + (study.studyid==null?'':study.studyid) + "</td></tr>" +
+			"<tr><td>Study Date Time</td><td>" + (study.studydatetime==null?'':new Date(study.studydatetime * 1000)) + "</td></tr>" +
+			"<tr><td>Study Priority ID</td><td>" + (study.studypriorityid==null?'':study.studypriorityid) + "</td></tr>" +
+			"<tr><td>Study Status ID</td><td>" + (study.studystatusid==null?'':study.studystatusid) + "</td></tr>" +
+			"<tr><td>Referring Physician Name</td><td>" + (study.referringphysicianname==null?'':study.referringphysicianname) + "</td></tr>" +
+			"<tr><td>Additional Patient History</td><td>" + (study.additionalpatienthistory==null?'':study.additionalpatienthistory) + "</td></tr>" +
+			"<tr><td>Admitting Diagnoses Description</td><td>" + (study.admittingdiagnosesdescription==null?'':study.admittingdiagnosesdescription) + "</td></tr>" +
 			"</tbody>" +
 			"</table>";
 }
@@ -96,15 +96,15 @@ function buildSeries(series){
 	return "<table class='table table-striped  table-condensed fixed-header'>" +
 			"<caption>Series</caption>" +
 			"<tbody>" +
-			"<tr><td>Series Description</td><td>" + (series.seriesDescription==null?'':series.seriesDescription) + "</td></tr>" +	  						
-			"<tr><td>Body Part Examined</td><td>" + (series.bodyPartExamined==null?'':series.bodyPartExamined) + "</td></tr>" +
+			"<tr><td>Series Description</td><td>" + (series.seriesdescription==null?'':series.seriesdescription) + "</td></tr>" +
+			"<tr><td>Body Part Examined</td><td>" + (series.bodypartexamined==null?'':series.bodypartexamined) + "</td></tr>" +
 			"<tr><td>Series Number</td><td>" + (series.seriesNumber==null?'':series.seriesNumber) + "</td></tr>" +
-			"<tr><td>Series Instance UID</td><td>" + (series.seriesInstanceUID==null?'':series.seriesInstanceUID) + "</td></tr>" +	  						
-			"<tr><td>Series Date Time</td><td>" + (series.seriesDateTime==null?'':series.seriesDateTime) + "</td></tr>" +
-			"<tr><td>Operators Name</td><td>" + (series.operatorsName==null?'':series.operatorsName) + "</td></tr>" +
-			"<tr><td>Protocol Name</td><td>" + (series.protocolName==null?'':series.protocolName) + "</td></tr>" +
+			"<tr><td>Series Instance UID</td><td>" + (series.seriesnumber==null?'':series.seriesnumber) + "</td></tr>" +
+			"<tr><td>Series Date Time</td><td>" + (series.seriesdatetime==null?'':series.seriesdatetime) + "</td></tr>" +
+			"<tr><td>Operators Name</td><td>" + (series.operatorsname==null?'':series.operatorsname) + "</td></tr>" +
+			"<tr><td>Protocol Name</td><td>" + (series.protocolname==null?'':series.protocolname) + "</td></tr>" +
 			"<tr><td>Laterality</td><td>" + (series.laterality==null?'':series.laterality) + "</td></tr>" +
-			"<tr><td>Patient Position</td><td>" + (series.patientPosition==null?'':series.patientPosition) + "</td></tr>" +	  							  						
+			"<tr><td>Patient Position</td><td>" + (series.patientposition==null?'':series.patientposition) + "</td></tr>" +
 			"</tbody>" +
 			"</table>";
 }
@@ -133,26 +133,26 @@ function buildInstance(instance){
 	return "<table class='table table-striped  table-condensed fixed-header'>" +
 			"<caption>Instance</caption>" +
 			"<tbody>" +
-			"<tr><td>Instance Number</td><td>" + (instance.instanceNumber==null?'':instance.instanceNumber) + "</td></tr>" +	  						
-			"<tr><td>SOP Instance UID</td><td>" + (instance.sopInstanceUID==null?'':instance.sopInstanceUID) + "</td></tr>" +
-			"<tr><td>Media Storage SOP Instance UID</td><td>" + (instance.mediaStorageSopInstanceUID==null?'':instance.mediaStorageSopInstanceUID) + "</td></tr>" +
-			"<tr><td>SOP Class UID</td><td>" + (instance.sopClassUID==null?'':instance.sopClassUID) + "</td></tr>" +	  						
+			"<tr><td>Instance Number</td><td>" + (instance.instancenumber==null?'':instance.instancenumber) + "</td></tr>" +
+			"<tr><td>SOP Instance UID</td><td>" + (instance.sopinstanceuid==null?'':instance.sopinstanceuid) + "</td></tr>" +
+			"<tr><td>Media Storage SOP Instance UID</td><td>" + (instance.mediastoragesopinstanceuid==null?'':instance.mediastoragesopinstanceuid) + "</td></tr>" +
+			"<tr><td>SOP Class UID</td><td>" + (instance.sopclassuid==null?'':instance.sopclassuid) + "</td></tr>" +
 			"<tr><td>KVP</td><td>" + (instance.kvp==null?'':instance.kvp) + "</td></tr>" +
-			"<tr><td>Exposure Time</td><td>" + (instance.exposureTime==null?'':instance.exposureTime) + "</td></tr>" +
-			"<tr><td>Image Orientation</td><td>" + (instance.imageOrientation==null?'':instance.imageOrientation) + "</td></tr>" +
-			"<tr><td>Image Type</td><td>" + (instance.imageType==null?'':instance.imageType) + "</td></tr>" +
-			"<tr><td>Image Position</td><td>" + (instance.imagePosition==null?'':instance.imagePosition) + "</td></tr>" +
+			"<tr><td>Exposure Time</td><td>" + (instance.exposuretime==null?'':instance.exposuretime) + "</td></tr>" +
+			"<tr><td>Image Orientation</td><td>" + (instance.imageorientation==null?'':instance.imageorientation) + "</td></tr>" +
+			"<tr><td>Image Type</td><td>" + (instance.imagetype==null?'':instance.imagetype) + "</td></tr>" +
+			"<tr><td>Image Position</td><td>" + (instance.imageposition==null?'':instance.imageposition) + "</td></tr>" +
 			
-			"<tr><td>Content Date Time</td><td>" + (instance.contentDateTime==null?'': new Date(instance.contentDateTime * 1000)) + "</td></tr>" +
-			"<tr><td>Acquisition Date Time</td><td>" + (instance.acquisitionDateTime==null?'': new Date(instance.acquisitionDateTime * 1000)) + "</td></tr>" +
-			"<tr><td>Patient Orientation</td><td>" + (instance.patientOrientation==null?'':instance.patientOrientation) + "</td></tr>" +
-			"<tr><td>Pixel Spacing</td><td>" + (instance.pixelSpacing==null?'':instance.pixelSpacing) + "</td></tr>" +
-			"<tr><td>Slice Location</td><td>" + (instance.sliceLocation==null?'':instance.sliceLocation) + "</td></tr>" +
-			"<tr><td>Slice Thickness</td><td>" + (instance.sliceThickness==null?'':instance.sliceThickness) + "</td></tr>" +
-			"<tr><td>Transfer Syntax UID</td><td>" + (instance.transferSyntaxUID==null?'':instance.transferSyntaxUID)+ "</td></tr>" +
-			"<tr><td>Window Center</td><td>" + (instance.windowCenter==null?'':instance.windowCenter) + "</td></tr>" +
-			"<tr><td>Window Width</td><td>" + (instance.windowWidth==null?'':instance.windowWidth)+ "</td></tr>" +
-			"<tr><td>Xray Tube Current</td><td>" + (instance.xrayTubeCurrent==null?'':instance.xrayTubeCurrent) + "</td></tr>" +	  						
+			"<tr><td>Content Date Time</td><td>" + (instance.contentdatetime==null?'': new Date(instance.contentdatetime * 1000)) + "</td></tr>" +
+			"<tr><td>Acquisition Date Time</td><td>" + (instance.acquisitiondatetime==null?'': new Date(instance.acquisitiondatetime * 1000)) + "</td></tr>" +
+			"<tr><td>Patient Orientation</td><td>" + (instance.patientorientation==null?'':instance.patientorientation) + "</td></tr>" +
+			"<tr><td>Pixel Spacing</td><td>" + (instance.pixelspacing==null?'':instance.pixelspacing) + "</td></tr>" +
+			"<tr><td>Slice Location</td><td>" + (instance.slicelocation==null?'':instance.slicelocation) + "</td></tr>" +
+			"<tr><td>Slice Thickness</td><td>" + (instance.slicethickness==null?'':instance.slicethickness) + "</td></tr>" +
+			"<tr><td>Transfer Syntax UID</td><td>" + (instance.transfersyntaxuid==null?'':instance.transfersyntaxuid)+ "</td></tr>" +
+			"<tr><td>Window Center</td><td>" + (instance.windowcenter==null?'':instance.windowcenter) + "</td></tr>" +
+			"<tr><td>Window Width</td><td>" + (instance.windowwidth==null?'':instance.windowwidth)+ "</td></tr>" +
+			"<tr><td>Xray Tube Current</td><td>" + (instance.xraytubecurrent==null?'':instance.xraytubecurrent) + "</td></tr>" +
 			"</tbody>" +
 			"</table>";
 }
@@ -174,7 +174,7 @@ function getStudy(pkTBLStudyID){
 				
 	  			if(data.success){	  				
 	  				$("#divStudy").html(buildStudy(data.study));//fill study
-	  				getPatient(data.study.patient.pkTBLPatientID);//get the parent patient
+	  				getPatient(data.study.pktblpatientid);//get the parent patient
 	  			}
 	  		}
 		});  
@@ -195,9 +195,9 @@ function getSeries(pkTBLSeriesID){
 				
 	  			if(data.success){	  				
 	  				$("#divSeries").html(buildSeries(data.series));//fill Series	  				
-	  				$("#divEquipment").html(buildEquipment(data.series));//fill the equipment	  				
-	  				getStudy(data.series.study.pkTBLStudyID);//get the parent study
-	  				getPatient(data.series.study.patient.pkTBLPatientID);//get the parent of parent patient
+	  				// $("#divEquipment").html(buildEquipment(data.series));//fill the equipment
+	  				getStudy(data.series.pktblstudyid);//get the parent study
+	  				// getPatient(data.series.study.patient.pkTBLPatientID);//get the parent of parent patient
 	  			}
 	  		}
 		});  
@@ -218,8 +218,8 @@ function getInstance(pkTBLInstanceID){
 				
 	  			if(data.success){	  				
 	  				$("#divInstance").html(buildInstance(data.instance));//fill instance	  				
-	  				getSeries(data.instance.series.pkTBLSeriesID);//get parent series
-	  				getStudy(data.instance.series.study.pkTBLStudyID);//get the parent of parent study
+	  				getSeries(data.instance.pktblseriesid);//get parent series
+	  				// getStudy(data.instance.series.study.pkTBLStudyID);//get the parent of parent study
 	  			}
 	  		}
 	  });
@@ -237,7 +237,6 @@ function getPatient(pkTBLPatientID){
 	  		url: uri,
 	  		data: info,  		
 	  		success: function(data){
-				
 	  			if(data.success){	  				
 	  				$("#divPatient").html(buildPatient(data.patient));//fill patient
 	  			}
